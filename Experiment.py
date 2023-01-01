@@ -4,6 +4,7 @@ import pathlib
 import errno
 from JsonParser.DataJsonParser import DataJsonParser
 from JsonParser.ModelJsonParser import ModelJsonParser
+from JsonSerializer.Serializer import Serializer
 
 _JSON_EXTS = [".json"]
 
