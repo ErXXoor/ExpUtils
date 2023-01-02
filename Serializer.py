@@ -10,3 +10,11 @@ class Serializer(ExpInterface):
 
     def serialize(self):
         return self.__dict__
+
+
+class Dataset_stats(Serializer):
+    def __init__(self) -> None:
+        super().__init__()
+        self.train_size = 0
+        self.test_size = 0
+        self.val_size = 0
