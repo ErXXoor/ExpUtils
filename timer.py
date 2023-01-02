@@ -41,35 +41,6 @@ class timer:
         self.train_dur = time.time()-self.timer_start if self.train_start is None else time.time()-self.train_start
         
         return self.train_dur
-
-    #TODO change incrementally create new json file to base class 
-    def save(self,config_path,
-             exp_config,
-             jc_hd,
-             test_result,
-             train_size=0,
-             test_size=0,
-             val_size=0,
-             same=False)->None:
-        if Path(config_path).suffix == ".json":
-            if os.path.exists(config_path) and not same:
-                filename = Path(config_path).stem
-                filename = filename[:-1]+str(int(filename[-1])+1)
-                config_path = str(Path(config_path).parent/"{}{}".format(filename,Path(config_path).suffix))
-              
-            with open(config_path,'w+') as f:
-                config_file={}
-                if same and os.path.exists(config_path):
-                    config_file = json.load(f)
-                
-                config_file['config'] = exp_config
-                config_file['timer'] = self.serialize()
-                config_file['dataset'] = {"train_size":train_size,
-                                          "test_size":test_size,
-                                          "val_size":val_size}
-                config_file['val_result'] = jc_hd
-                config_file['test_result'] = test_result
-                json.dump(config_file,f)
                 
     def serialize(self)->dict:
         result = {}
