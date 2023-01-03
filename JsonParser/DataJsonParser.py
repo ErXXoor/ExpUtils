@@ -1,4 +1,4 @@
-from Interface.ExpInterface import ExpInterface
+from ..Interface.ExpInterface import ExpInterface
 
 
 class DataJsonParser(ExpInterface):

@@ -1,10 +1,10 @@
 import json
 import os
 from pathlib import Path
-from JsonParser.DataJsonParser import DataJsonParser
-from JsonParser.ModelJsonParser import ModelJsonParser
-from Serializer import Dataset_stats
-from timer import timer
+from .JsonParser.DataJsonParser import DataJsonParser
+from .JsonParser.ModelJsonParser import ModelJsonParser
+from .Serializer import Dataset_stats
+from .ExpTimer import ExpTimer
 
 _JSON_EXTS = [".json"]
 
@@ -14,13 +14,15 @@ class Experiment:
         if not os.path.exists(exp_path):
             raise FileNotFoundError("File {} not found".format(exp_path))
 
+        self.data_config = None
+        self.model_config = None
         self.validate_path(exp_path)
 
         with open(exp_path, 'r') as f:
             exp_config = json.load(f)
 
         self.init_exp_module_list(exp_config)
-        self.timer_stats = timer()
+        self.timer_stats = ExpTimer()
 
     def init_exp_module_list(self, exp_config: dict):
         self.data_config = DataJsonParser(exp_config)
