@@ -9,8 +9,10 @@ class ModelJsonParser(ExpInterface):
     def json_load(self, exp_config: dict):
         self.result_path = exp_config.get('result_path', {})
         self.model_path = exp_config.get('model_path', {})
-        self.ls = exp_config.get('learning_rate', {})
+        self.learning_rate = exp_config.get('learning_rate', {})
         self.epoch = exp_config.get('epoch', {})
         self.batch_size = exp_config.get('batch_size', {})
         self.w_sr = exp_config.get('w_sr', {})
         self.w_tf = exp_config.get('w_tf', {})
+        self.samples_per_epoch = exp_config.get('samples_per_epoch', {})
+        self.device_number = exp_config.get('device_number', {})

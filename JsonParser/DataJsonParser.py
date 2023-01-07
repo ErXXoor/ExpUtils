@@ -8,6 +8,7 @@ class DataJsonParser(ExpInterface):
 
     def json_load(self, exp_config: dict):
         self.dataset_path = exp_config.get('dataset_path', {})
+        self.valset_path = exp_config.get('valset_path', {})
         self.data_augment = exp_config.get('data_augment', {})
         self.post_format = exp_config.get('post_format', {})
         self.data_preprocess = exp_config.get(

@@ -4,6 +4,7 @@ from pathlib import Path
 from .JsonParser.DataJsonParser import DataJsonParser
 from .JsonParser.ModelJsonParser import ModelJsonParser
 from .Serializer import Dataset_stats
+from .Metric_stats import Metric_stats
 from .ExpTimer import ExpTimer
 
 _JSON_EXTS = [".json"]
@@ -28,7 +29,8 @@ class Experiment:
         self.data_config = DataJsonParser(exp_config)
         self.model_config = ModelJsonParser(exp_config)
 
-    def save(self, result_path):
+    def save(self):
+        result_path = self.model_config.result_path
         self.validate_path(result_path)
 
         with open(result_path, 'w+') as f:
@@ -51,7 +53,7 @@ class Experiment:
     def dataload_duration(self):
         self.timer_stats.dataload_duration()
 
-    def train_init(self,metric_stats):
+    def train_init(self,metric_stats = Metric_stats()):
         self.timer_stats.train_init()
         self.metric_stats = metric_stats
         
