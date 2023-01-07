@@ -1,8 +1,6 @@
 import time
-import json,os
-from pathlib import Path
 
-class timer:
+class ExpTimer:
     def __init__(self) -> None:
         self.dataload_start = None
         self.train_start = None
