@@ -1,10 +1,9 @@
 import json
 import os
 from pathlib import Path
-from .JsonParser.DataJsonParser import DataJsonParser
-from .JsonParser.ModelJsonParser import ModelJsonParser
-from .Serializer import Dataset_stats
-from .Metric_stats import Metric_stats
+from .JsonParser import DataJsonParser
+from .JsonParser import ModelJsonParser
+from .JsonSerializer import Dataset_stats, Metric_stats
 from .ExpTimer import ExpTimer
 
 _JSON_EXTS = [".json"]
@@ -36,10 +35,11 @@ class Experiment:
         with open(result_path, 'w+') as f:
             exp_result = {}
 
-            exp_result['config'] = self.model_config | self.data_config
+            exp_result['config'] = {**self.model_config.__dict__,**self.data_config.__dict__}
             exp_result['timer'] = self.timer_stats.serialize()
-            exp_result['dataset'] = self.dataset_stats
-            exp_result['metric_stats'] = self.metric_stats
+            exp_result['dataset'] = self.dataset_stats.__dict__
+            exp_result['test_result'] = self.test_stats.__dict__
+            exp_result['val_result'] = self.val_stats.__dict__
             json.dump(exp_result, f)
 
     def validate_path(self, file_path):
@@ -53,9 +53,10 @@ class Experiment:
     def dataload_duration(self):
         self.timer_stats.dataload_duration()
 
-    def train_init(self,metric_stats = Metric_stats()):
+    def train_init(self):
         self.timer_stats.train_init()
-        self.metric_stats = metric_stats
+        self.test_stats = Metric_stats()
+        self.val_stats = Metric_stats()
         
     def train_duration(self):
         self.timer_stats.train_duration()
