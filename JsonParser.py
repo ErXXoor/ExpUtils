@@ -1,5 +1,5 @@
 class ModelJsonParser():
-    def __init__(self, exp_config: dict = None) -> None:
+    def __init__(self, exp_config: dict = {}) -> None:
         self.json_load(exp_config)
 
     def json_load(self, exp_config: dict):
@@ -15,7 +15,7 @@ class ModelJsonParser():
 
 
 class DataJsonParser():
-    def __init__(self, exp_config: dict = None) -> None:
+    def __init__(self, exp_config: dict = {}) -> None:
         self.json_load(exp_config)
 
     def json_load(self, exp_config: dict):
