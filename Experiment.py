@@ -14,8 +14,8 @@ class Experiment:
         if not os.path.exists(exp_path):
             raise FileNotFoundError("File {} not found".format(exp_path))
 
-        self.data_config = None
-        self.model_config = None
+        self.data_config = {}
+        self.model_config = {}
         self.validate_path(exp_path)
 
         with open(exp_path, 'r') as f:
@@ -32,6 +32,10 @@ class Experiment:
         result_path = self.model_config.result_path
         self.validate_path(result_path)
 
+        parent_dir = Path(result_path).parent.absolute()
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+        
         with open(result_path, 'w+') as f:
             exp_result = {}
 
