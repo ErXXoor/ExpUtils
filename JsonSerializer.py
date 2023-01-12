@@ -1,7 +1,6 @@
 
 class Dataset_stats():
     def __init__(self) -> None:
-        super().__init__()
         self.train_size = 0
         self.test_size = 0
         self.val_size = 0
