@@ -1,4 +1,5 @@
 import sys
+from loguru import logger
 
 class Logger():
     def __init__(self, file_path) -> None:
