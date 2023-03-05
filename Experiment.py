@@ -16,6 +16,7 @@ class Experiment:
         self._data_config = exp_config.data_config
         self._model_config = exp_config.model_config
         self._utils_config = exp_config.utils_config
+        self._description = exp_config.get("description","None")
         
         self.validate_path(exp_path)
         
@@ -30,9 +31,10 @@ class Experiment:
         if not os.path.exists(os.path.dirname(result_path)):
             os.makedirs(os.path.dirname(result_path))
             
-        self._exp_result.update(self._timer_stats.serialize())
-        self._exp_result.update(self._model_config)
-        self._exp_result.update(self._data_config)
+        self._exp_result.description=self._description
+        self._exp_result.time = self._timer_stats.serialize()
+        self._exp_result.model_config=self._model_config
+        self._exp_result.data_config=self._data_config
             
         cfg_to_json(self._exp_result, result_path)
 
