@@ -22,7 +22,6 @@ class Experiment:
         
         self._timer_stats = ExpTimer()
         self._exp_result = edict()
-        
 
     def save(self):
         result_path = self._model_config.exp_result_path
