@@ -40,6 +40,8 @@ class Experiment:
 
         self._exp_result.model_config = self._model_config if self._model_config else "No model config"
 
+        self._exp_result.train_config = self._train_config if self._train_config else "No train config"
+
         self._exp_result.data_config = self._data_config if self._data_config else "No data config"
 
         cfg_to_json(self._exp_result, result_path)
