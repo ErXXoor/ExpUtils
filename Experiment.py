@@ -10,9 +10,11 @@ class Experiment:
     def __init__(self, exp_path) -> None:
         if not os.path.exists(exp_path):
             raise FileNotFoundError("File {} not found".format(exp_path))
+        self.validate_path(exp_path)
 
         exp_config = cfg_from_json(exp_path)
 
+        self._exp_config = exp_config.get("exp_config", None)
         self._data_config = exp_config.get("data_config", None)
         self._model_config = exp_config.get("model_config", None)
         self._train_config = exp_config.get("train_config", None)
@@ -20,9 +22,12 @@ class Experiment:
         self._description = exp_config.get("description", None)
 
         var_list = exp_config.get("var_list", None)
-        self.apply_var([self._model_config, self._data_config,
+        self.apply_var([self._exp_config, self._model_config, self._data_config,
                        self._utils_config], var_list)
-        self.validate_path(exp_path)
+
+        exp_folder = self._exp_config.exp_folder
+        if not os.path.exists(exp_folder):
+            os.makedirs(exp_folder)
 
         self._timer_stats = ExpTimer()
         self._exp_result = edict()
@@ -30,9 +35,6 @@ class Experiment:
     def save(self):
         result_path = self._model_config.exp_result_path
         self.validate_path(result_path)
-
-        if not os.path.exists(os.path.dirname(result_path)):
-            os.makedirs(os.path.dirname(result_path))
 
         self._exp_result.description = self._description if self._description else "No description"
 
