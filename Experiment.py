@@ -62,5 +62,6 @@ class Experiment:
                 if isinstance(value, str):
                     for var_key, var_value in var_dict.items():
                         if "${}$".format(var_key) in value:
-                            target[key] = value.replace(
+                            value = value.replace(
                                 "${}$".format(var_key), var_value)
+                            target[key] = value
